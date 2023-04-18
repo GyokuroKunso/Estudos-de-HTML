@@ -1,19 +1,19 @@
 CREATE DATABASE henrique;
 USE henrique;
-
+/
 CREATE TABLE curso (
 cod_curso INTEGER,
 nome_curso VARCHAR(100),
 sigla VARCHAR(10),
 PRIMARY KEY (cod_curso)
 );
-
+/
 CREATE TABLE disciplina (
 cod_disciplina INTEGER,
 nome_disciplina VARCHAR(100),
 PRIMARY KEY (cod_disciplina)
 );
-
+/
 CREATE TABLE turma (
 cod_turma INTEGER,
 turno VARCHAR(20),
@@ -22,14 +22,14 @@ PRIMARY KEY(cod_turma),
 CONSTRAINT fk_disciplina_turma FOREIGN KEY(disciplina)
 REFERENCES disciplina(cod_disciplina)
 );
-
+/
 CREATE TABLE aluno (
 matricula VARCHAR(20),
 nome VARCHAR(200),
 cpf VARCHAR(15),
 PRIMARY KEY (matricula)
 );
-
+/
 CREATE TABLE aluno_curso (
 cod_aluno_curso INTEGER,
 aluno VARCHAR(20),
@@ -40,7 +40,7 @@ REFERENCES aluno(matricula),
 CONSTRAINT fk_curso FOREIGN KEY (curso)
 references curso (cod_curso)
 );
-
+/
 CREATE TABLE aluno_turma (
 cod_aluno_turma INTEGER,
 aluno VARCHAR(20),
@@ -51,7 +51,7 @@ REFERENCES aluno (matricula),
 CONSTRAINT fk_turma FOREIGN KEY(turma)
 REFERENCES turma (cod_turma)
 );
-
+/
 CREATE TABLE curso_disciplina (
 cod_curso_disciplina INTEGER,
 curso INTEGER,
@@ -62,7 +62,7 @@ REFERENCES curso (cod_curso),
 constraint fk_disciplina_curso FOREIGN KEY (disciplina)
 REFERENCES disciplina (cod_disciplina)
 );
-
+/
 INSERT INTO curso (cod_curso, nome_curso,sigla)
 VALUES
      (1, "Ciência da computação", "CCO"),
@@ -70,7 +70,7 @@ VALUES
      (3, "Jogos Digitais","JDI"),
      (4, "Gestão de Tecnologia de Informação","GTI"),
      (5, "Sistema de Informação","STI");
-     
+ /    
 INSERT INTO disciplina (cod_disciplina, nome_disciplina)
 VALUES
       (1,"Banco de dados"),
@@ -79,7 +79,7 @@ VALUES
       (4,"Lógica Boolena"),
       (5,"Computação Gráfica"),
       (6,"Redes de Computadores");
-
+/
 INSERT INTO aluno (matricula,nome,cpf)
 VALUES
       ("202300001","Bruce Wayne","1111111111-11"),
@@ -91,7 +91,7 @@ VALUES
       ("2002300007","Antony Starks","777777777-77"),
       ("2002300008","Peter Paker","888888888-88"),
       ("2002300009","Bruce Banner","999999999-99");
-      
+/      
 INSERT INTO turma (cod_turma,turno, disciplina)
 VALUES
       (1,"Manhã",1),
@@ -106,7 +106,7 @@ VALUES
       (10,"Noite",4),
       (11,"Noite",5),
       (12,"Noite",6);
-      
+/      
 INSERT INTO curso_disciplina
 (cod_curso_disciplina, curso, disciplina)
 VALUES
@@ -140,8 +140,8 @@ VALUES
       (28,5,4),
       (29,5,5),
       (30,5,6);
-		
-		
+/		
+/		
 INSERT INTO aluno_curso (cod_aluno_curso, aluno, curso)
 VALUES
       (1,'202300001',1),
@@ -153,7 +153,7 @@ VALUES
       (7,'202300007',2),
       (8,'202300008',3),
       (9,'202300009',4);
-
+/
 INSERT INTO aluno_turma (cod_aluno_turma, aluno, turma)
 VALUES
       (1,'202300001',1),
@@ -174,16 +174,27 @@ VALUES
       (16,'202300008',10),
       (17,'202300009',9),
       (18,'202300009',10);
-      
-      
+/     
+/      
 SELECT matricula,nome,cpf FROM aluno
 WHERE matricula = "202300006"
 WHERE nome = "Steve Rogers"
 WHERE cpf = "6666666-66"
-
-
+/
+/
 SELECT * FROM curso , aluno
 WHERE sigla = "JDI" OR sigla = "CCO" 
 AND cpf = "111111111-11"
-
+/
 SELECT * FROM aluno_curso ,aluno WHERE matricula = "202300001"
+/
+SELECT *FROM aluno_curso
+INNER JOIN aluno ON aluno = matricula
+WHERE matricula = "202300001"
+/
+/
+SELECT curso, matricula, nome, cpf FROM aluno_curso
+INNER JOIN aluno ON aluno = matricula
+INNER JOIN curso ON curso = cod_curso
+WHERE matricula = "202300001"
+/
