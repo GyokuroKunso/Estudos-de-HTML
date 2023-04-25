@@ -1,5 +1,9 @@
 <?php
 
+/*Sempre colocar no navegador localhost/nomedapasta/nomedoarquivo.php*/
+
+
+
 $variavel = 10;
 
 if ($variavel <20) {
