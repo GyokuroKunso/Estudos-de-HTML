@@ -198,3 +198,16 @@ INNER JOIN aluno ON aluno = matricula
 INNER JOIN curso ON curso = cod_curso
 WHERE matricula = "202300001"
 
+INSERT INTO curso (cod_curso, nome_curso, sigla)
+VALUES
+(6,'Engenharia da computação', 'EC'),
+(7,'Tecnplogia de rede de computadores' ,'TRC');
+
+DELETE FROM curso
+WHERE
+cod_curso = 7
+
+DELETE FROM curso
+WHERE
+cod_curso = 2
+SET FOREIGN_KEY_CHECKS=0
